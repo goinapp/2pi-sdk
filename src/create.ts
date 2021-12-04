@@ -5,8 +5,10 @@ import { Buffer } from 'buffer'
 import { spawnSync } from 'child_process'
 
 type Options = {
-  address:  string,
-  mnemonic: string
+  address:   string,
+  mnemonic:  string,
+  apiKey:    string,
+  apiSecret: string
 }
 
 const copyFiles = (source: string, destination: string) => {

@@ -1,6 +1,6 @@
 # Welcome to 2PI SDK
 
-Javascript SDK for building with 2PI Protocol
+JavaScript SDK for building with 2PI Protocol
 
 * [Homepage](https://2pi.network)
 * [Docs](https://docs.2pi.network)
@@ -22,6 +22,10 @@ For an up to date list, please check the inline help with:
 ```console
 npx @2pi-network/sdk --help
 ```
+
+## Warning
+
+Be careful when providing the API secret as a command line option, since it will be stored on your shell history. If you omit the option it will be asked during the initial configuration anyway.
 
 # Let's talk!
 

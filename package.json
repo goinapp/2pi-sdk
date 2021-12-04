@@ -1,6 +1,6 @@
 {
   "name": "@2pi-network/sdk",
-  "version": "0.1.0-alpha.6",
+  "version": "0.1.0-alpha.7",
   "author": "2PI",
   "main": "./dist/index.js",
   "homepage": "https://github.com/2pinetwork/tps",
@@ -27,7 +27,7 @@
     "@typescript-eslint/parser": "^5.4.0",
     "@vercel/ncc": "^0.33.0",
     "commander": "^8.3.0",
-    "eslint": "^8.3.0",
+    "eslint": "^8.4.0",
     "typedoc": "^0.22.10",
     "typescript": "^4.5.2"
   },

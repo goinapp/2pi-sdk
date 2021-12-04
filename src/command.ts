@@ -4,11 +4,20 @@ import packageConfig from '../package.json'
 const command = (): { program: Command, projectPath: string } => {
   let projectPath = null
   const program   = new Command(packageConfig.name)
+  const help      = {
+    version:  'output the current version',
+    mnemonic: 'provide your own mnemonic',
+    key:      'provide your API key',
+    secret:   'provide your API secret (be carefull, can be seen using shell history)',
+    project:  'project name (it will also become the project directory)'
+  }
 
   program
-    .version(packageConfig.version, '-v, --version', 'output the current version')
-    .addOption(new Option('-m, --mnemonic <words...>', 'provide your own mnemonic').env('MNEMONIC'))
-    .argument('<project-name>', 'project name (it will also become the project directory)')
+    .version(packageConfig.version, '-v, --version', help.version)
+    .addOption(new Option('-m, --mnemonic <words...>', help.mnemonic).env('MNEMONIC'))
+    .addOption(new Option('-k, --key <key>', help.key).env('API_KEY'))
+    .addOption(new Option('-s, --secret <secret>', help.secret).env('API_SECRET'))
+    .argument('<project-name>', help.project)
     .action(projectName => projectPath = projectName)
     .parse()
 
