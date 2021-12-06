@@ -11,10 +11,10 @@ const options                  = program.opts()
 
 const main = async () => {
   const key   = await getApiKey({ key: options.key, secret: options.secret })
-  const valid = await checkApiKey(key)
+  const valid = await checkApiKey(key, options.development)
 
   if (valid) {
-    const endpoint                           = getEndpoint()
+    const endpoint                           = getEndpoint(options.development)
     const walletOptions                      = { mnemonic: options.mnemonic }
     const { address, mnemonic }              = configWallet(walletOptions)
     const { key: apiKey, secret: apiSecret } = key

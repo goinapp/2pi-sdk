@@ -1,7 +1,7 @@
 import config from '../config.json'
 
-const getEndpoint = () => {
-  const { protocol, hostname, port } = config.endpoint
+const getEndpoint = (devMode = false) => {
+  const { protocol, hostname, port } = getEndpointData(devMode)
   const hasDefaultPort               =
     (protocol === 'https' && port === 443) ||
     (protocol === 'http' && port === 80)
@@ -11,6 +11,13 @@ const getEndpoint = () => {
   } else {
     return `${protocol}://${hostname}:${port}`
   }
+}
+
+export const getEndpointData = (devMode = false) => {
+  const { development, production } = config
+  const envConfig                   = devMode ? development : production
+
+  return envConfig.endpoint
 }
 
 export default getEndpoint

@@ -4,6 +4,7 @@ import readline from 'readline'
 import { stdin as input, stdout as output } from 'process'
 import util from 'util'
 import config from '../config.json'
+import { getEndpointData } from './endpoint'
 
 type HttpClient = typeof http | typeof https
 type ApiKey     = { key: string, secret: string }
@@ -51,12 +52,13 @@ const request = (
   })
 }
 
-export const checkApiKey = async (apiKey: ApiKey): Promise<boolean> => {
-  const data    = new TextEncoder().encode(JSON.stringify(apiKey))
-  const client  = config.endpoint.protocol === 'https' ? https : http
-  const options = {
-    hostname: config.endpoint.hostname,
-    port:     config.endpoint.port,
+export const checkApiKey = async (apiKey: ApiKey, devMode: boolean): Promise<boolean> => {
+  const data     = new TextEncoder().encode(JSON.stringify(apiKey))
+  const endpoint = getEndpointData(devMode)
+  const client   = endpoint.protocol === 'https' ? https : http
+  const options  = {
+    hostname: endpoint.hostname,
+    port:     endpoint.port,
     path:     config.sessionsPath,
     method:   'POST',
     headers:  {

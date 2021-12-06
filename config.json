@@ -1,8 +1,17 @@
 {
-  "endpoint": {
-    "hostname": "localhost",
-    "protocol": "http",
-    "port": 4000
+  "development": {
+    "endpoint": {
+      "hostname": "localhost",
+      "protocol": "http",
+      "port": 4000
+    }
+  },
+  "production": {
+    "endpoint": {
+      "hostname": "api.2pi.network",
+      "protocol": "https",
+      "port": 443
+    }
   },
   "sessionsPath": "/v1/sessions"
 }
