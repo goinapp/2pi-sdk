@@ -2,11 +2,12 @@ import fs from 'fs'
 import os from 'os'
 import path from 'path'
 import { Buffer } from 'buffer'
-import { spawnSync } from 'child_process'
+import { execSync, spawnSync } from 'child_process'
 
 type Options = {
   address:   string,
   mnemonic:  string,
+  endpoint:  string,
   apiKey:    string,
   apiSecret: string
 }
@@ -55,7 +56,7 @@ const createPackageJson = (appPath: string, appName: string) => {
 }
 
 const installDependencies = (appPath: string) => {
-  const deps = ['dotenv', 'ethers']
+  const deps = ['axios', 'dotenv', 'ethers']
 
   const { status, stdout, stderr } = spawnSync(
     'npm',
@@ -69,6 +70,19 @@ const installDependencies = (appPath: string) => {
     console.error(stderr.toString())
 
     process.exit(status || 1)
+  }
+}
+
+const tryGitInit = (appPath: string): boolean => {
+  const options = { cwd: appPath }
+
+  try {
+    execSync('git --version', options)
+    execSync('git init', options)
+
+    return true
+  } catch (_error) {
+    return false
   }
 }
 
@@ -92,6 +106,9 @@ const createApp = (appPath: string, options: Options) => {
 
   console.log('Installing dependencies...')
   installDependencies(appPath)
+
+  console.log('Trying to initialize a git repository...')
+  tryGitInit(appPath)
 }
 
 export default createApp

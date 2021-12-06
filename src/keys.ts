@@ -53,7 +53,7 @@ const request = (
 
 export const checkApiKey = async (apiKey: ApiKey): Promise<boolean> => {
   const data    = new TextEncoder().encode(JSON.stringify(apiKey))
-  const client  = config.endpoint.https ? https : http
+  const client  = config.endpoint.protocol === 'https' ? https : http
   const options = {
     hostname: config.endpoint.hostname,
     port:     config.endpoint.port,

@@ -2,6 +2,7 @@
 
 import command from './src/command'
 import createApp from './src/create'
+import getEndpoint from './src/endpoint'
 import { checkApiKey, getApiKey } from './src/keys'
 import configWallet from './src/wallet'
 
@@ -13,11 +14,12 @@ const main = async () => {
   const valid = await checkApiKey(key)
 
   if (valid) {
+    const endpoint                           = getEndpoint()
     const walletOptions                      = { mnemonic: options.mnemonic }
     const { address, mnemonic }              = configWallet(walletOptions)
     const { key: apiKey, secret: apiSecret } = key
 
-    createApp(projectPath, { address, mnemonic, apiKey, apiSecret })
+    createApp(projectPath, { address, mnemonic, endpoint, apiKey, apiSecret })
   } else {
     throw new Error('Invalid API key, please check the values and try again')
   }

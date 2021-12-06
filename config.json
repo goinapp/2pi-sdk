@@ -1,7 +1,7 @@
 {
   "endpoint": {
     "hostname": "localhost",
-    "https": false,
+    "protocol": "http",
     "port": 4000
   },
   "sessionsPath": "/v1/sessions"
