@@ -1,0 +1,5 @@
+{
+  "depositPath": "/v1/deposits",
+  "sessionsPath": "/v1/sessions",
+  "vaultsPath": "/v1/vaults"
+}

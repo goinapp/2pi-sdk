@@ -1,15 +1,13 @@
 {
   "name": "@2pi-network/sdk",
-  "version": "0.1.0-alpha.9",
+  "version": "0.1.0-alpha.10",
   "author": "2PI",
   "main": "./dist/index.js",
   "homepage": "https://github.com/2pinetwork/tps",
   "license": "MIT",
-  "bin": {
-    "@2pi-network/sdk": "./dist/index.js"
-  },
   "scripts": {
-    "build": "scripts/build.sh",
+    "build": "tsc --module commonjs",
+    "clean": "tsc --build --clean",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .js,.ts",
     "prepare": "npm run build"
@@ -22,16 +20,15 @@
     "url": "https://github.com/2pinetwork/tps/issues"
   },
   "devDependencies": {
-    "@types/node": "^16.11.10",
-    "@typescript-eslint/eslint-plugin": "^5.4.0",
-    "@typescript-eslint/parser": "^5.4.0",
-    "@vercel/ncc": "^0.33.0",
-    "commander": "^8.3.0",
-    "eslint": "^8.4.0",
+    "@types/node": "^16.11.12",
+    "@typescript-eslint/eslint-plugin": "^5.6.0",
+    "@typescript-eslint/parser": "^5.6.0",
+    "eslint": "^8.4.1",
     "typedoc": "^0.22.10",
-    "typescript": "^4.5.2"
+    "typescript": "^4.5.3"
   },
   "dependencies": {
+    "axios": "^0.24.0",
     "ethers": "^5.5.2"
   },
   "publishConfig": {
