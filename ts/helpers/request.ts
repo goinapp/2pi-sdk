@@ -1,8 +1,10 @@
-import axios, { AxiosResponse } from 'axios'
+import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
 import { getAuthHeader, getValidToken } from './session'
 import TwoPi from '../twoPi'
 
-const initialConfig = async (twoPi: TwoPi): Promise<{ headers: {} }> => {
+const initialConfig = async (
+  twoPi: TwoPi
+): Promise<AxiosRequestConfig<Record<string, unknown>>> => {
   const token = await getValidToken(twoPi)
 
   return {
@@ -10,13 +12,20 @@ const initialConfig = async (twoPi: TwoPi): Promise<{ headers: {} }> => {
   }
 }
 
-export const get = async (twoPi: TwoPi, path: string): Promise<AxiosResponse> => {
+export const get = async (
+  twoPi: TwoPi,
+  path:  string
+): Promise<AxiosResponse> => {
   const config = await initialConfig(twoPi)
 
   return await axios.get(`${twoPi.endpoint}/${path}`, config)
 }
 
-export const post = async (twoPi: TwoPi, path: string, data: {}): Promise<AxiosResponse> => {
+export const post = async (
+  twoPi: TwoPi,
+  path:  string,
+  data:  Record<string, unknown>
+): Promise<AxiosResponse> => {
   const config = await initialConfig(twoPi)
 
   return await axios.post(`${twoPi.endpoint}/${path}`, data, config)
