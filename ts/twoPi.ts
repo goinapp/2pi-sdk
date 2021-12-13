@@ -2,6 +2,7 @@ import { Wallet } from 'ethers'
 import { TransactionReceipt } from '@ethersproject/abstract-provider'
 import { getVaults, Vault } from './vaults'
 import { deposit } from './helpers/deposit'
+import { withdraw } from './helpers/withdraw'
 
 type Constructor = {
   mnemonic:  string,
@@ -11,9 +12,15 @@ type Constructor = {
 }
 
 type Deposit = {
-  amount: string
-  poolId: 'mumbai-dai' | undefined
-  unit:   'native' | 'wei' | undefined
+  amount:          string
+  vaultIdentifier: 'mumbai_dai' | undefined
+  unit:            'native' | 'wei' | undefined
+}
+
+type Withdraw = {
+  amount:          string
+  vaultIdentifier: 'mumbai_dai' | undefined
+  unit:            'native' | 'wei' | undefined
 }
 
 export default class TwoPi {
@@ -37,11 +44,19 @@ export default class TwoPi {
     return await getVaults(this)
   }
 
-  async deposit({ amount, poolId, unit }: Deposit): Promise<Array<TransactionReceipt>> {
+  async deposit({ amount, vaultIdentifier, unit }: Deposit): Promise<Array<TransactionReceipt>> {
     return await deposit(this, {
       amount,
-      poolId: poolId || 'mumbai-dai',
-      unit:   unit   || 'wei'
+      vaultIdentifier: vaultIdentifier || 'mumbai_dai',
+      unit:            unit            || 'wei'
+    })
+  }
+
+  async withdraw({ amount, vaultIdentifier, unit }: Withdraw): Promise<Array<TransactionReceipt>> {
+    return await withdraw(this, {
+      amount,
+      vaultIdentifier: vaultIdentifier || 'mumbai_dai',
+      unit:            unit            || 'wei'
     })
   }
 }

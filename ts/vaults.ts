@@ -3,6 +3,7 @@ import { get } from './helpers/request'
 import TwoPi from './twoPi'
 
 type Constructor = {
+  identifier:   string
   pid:          number
   token:        string
   address:      string
@@ -11,13 +12,15 @@ type Constructor = {
 }
 
 export class Vault {
+  readonly identifier:   string
   readonly pid:          number
   readonly token:        string
   readonly address:      string
   readonly tokenAddress: string
   readonly apy:          number
 
-  constructor({pid, token, address, tokenAddress, apy}: Constructor) {
+  constructor({identifier, pid, token, address, tokenAddress, apy}: Constructor) {
+    this.identifier   = identifier
     this.pid          = pid
     this.token        = token
     this.address      = address
@@ -29,6 +32,7 @@ export class Vault {
 type VaultData = {
   apy:              number,
   contract_address: string,
+  identifier:       string,
   pid:              number,
   token:            string,
   token_address:    string
@@ -41,11 +45,12 @@ export const getVaults = async (twoPi: TwoPi): Promise<Array<Vault>> => {
     const {
       apy,
       contract_address: address,
+      identifier,
       pid,
       token,
       token_address: tokenAddress
     } = vault
 
-    return new Vault({ address, apy, pid, token, tokenAddress })
+    return new Vault({ address, apy, identifier, pid, token, tokenAddress })
   })
 }

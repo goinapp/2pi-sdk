@@ -5,18 +5,18 @@ import routes from './routes.json'
 import { post } from './request'
 import TwoPi from '../twoPi'
 
-type Deposit = {
+type Withdraw = {
   amount:          string,
   vaultIdentifier: 'mumbai_dai',
   unit:            'native' | 'wei'
 }
 
-export const deposit = async (
+export const withdraw = async (
   twoPi: TwoPi,
-  { amount, vaultIdentifier, unit }: Deposit
+  { amount, vaultIdentifier, unit }: Withdraw
 ): Promise<Array<TransactionReceipt>> => {
-  const data     = { deposit: { amount, unit, vault_identifier: vaultIdentifier } }
-  const response = await post(twoPi, routes.depositsPath, data)
+  const data     = { withdraw: { amount, unit, vault_identifier: vaultIdentifier } }
+  const response = await post(twoPi, routes.withdrawsPath, data)
   const receipts = []
 
   if (response.status === 200) {
@@ -43,6 +43,6 @@ export const deposit = async (
 
     return receipts
   } else {
-    throw new Error(`Deposit response status was ${response.status} (and 200 was expected)`)
+    throw new Error(`Withdraw response status was ${response.status} (and 200 was expected)`)
   }
 }

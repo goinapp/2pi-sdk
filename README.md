@@ -53,7 +53,7 @@ main().then(() => {
   * [Attributes](#twopi-public-attributes)
   * [Methods](#twopi-public-methods)
 
-# Private classes (may become public on some future release)
+# Private classes (may become public on future releases)
 
 * [Vault](#vault-instance)
   * [Attributes](#vault-private-attributes)
@@ -82,12 +82,14 @@ On every `twoPi` instance you can access the following attributes:
 
 * `constructor({mnemonic, apiKey, apiSecret, endpoint?})` returns a new instance. Refer to [TwoPi public attributes](#twopi-public-attributes) to get a description of each argument.
 * `async getVaults()` it returns an array of available vaults (each of which are Vault instances).
-* `async deposit({amount, poolId?, unit?})` it makes a deposit on the given pool and returns an array of [transaction receipts](https://docs.ethers.io/v5/single-page/#/v5/api/providers/types/-%23-providers-TransactionReceipt). For `amount` prefer string to keep precision. If `unit` is `'wei'` (default) amount would not be converted. If `unit` is `'native'` the provided amount would be interpreted like fetched directly from some UI (for example 1 for ETH would be converted to `1 * 1e18`). The `poolId` argument can be omitted, the only (and default) options for the time being is `mumbai-dai`.
+* `async deposit({amount, poolId?, unit?})` it makes a deposit on the given pool and returns an array of [transaction receipts](https://docs.ethers.io/v5/single-page/#/v5/api/providers/types/-%23-providers-TransactionReceipt). For `amount` prefer string to keep precision. If `unit` is `'wei'` (default) amount would not be converted. If `unit` is `'native'` the provided amount would be interpreted like fetched directly from some UI (for example 1 for ETH would be converted to `1 * 1e18`). The `poolId` argument can be omitted, the only (and default) options for the time being is `mumbai_dai`.
+* `async withdraw({amount, poolId?, unit?})` it makes a withdraw on the given pool and returns an array of [transaction receipts](https://docs.ethers.io/v5/single-page/#/v5/api/providers/types/-%23-providers-TransactionReceipt). For `amount` prefer string to keep precision. If `unit` is `'wei'` (default) amount would not be converted. If `unit` is `'native'` the provided amount would be interpreted like fetched directly from some UI (for example 1 for ETH would be converted to `1 * 1e18`). The `poolId` argument can be omitted, the only (and default) options for the time being is `mumbai_dai`.
 
 ### Vault private attributes
 
 On every `vault` instance you can access the following attributes:
 
+* `identifier`: the vault identifier, used as argument on deposit and withdraw operation (referred as `vaultIdentifier`).
 * `pid`: the vault _internal_ ID.
 * `token`: string identifying the token being maximized.
 * `address`: string with the vault main contract address.
@@ -96,7 +98,7 @@ On every `vault` instance you can access the following attributes:
 
 ### Vault private methods
 
-* `constructor({pid, token, address, tokenAddress, apy})` refer to [Vault private attributes](#vault-private-attributes) to get a description of each argument and attribute.
+* `constructor({identifier, pid, token, address, tokenAddress, apy})` refer to [Vault private attributes](#vault-private-attributes) to get a description of each argument and attribute.
 
 ## Warning
 
