@@ -1,6 +1,7 @@
 {
   "depositsPath": "v1/deposits",
   "sessionsPath": "v1/sessions",
+  "transactionsPath": "v1/transactions",
   "vaultsPath": "v1/vaults",
   "withdrawsPath": "v1/withdraws"
 }

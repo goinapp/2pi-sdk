@@ -1,5 +1,4 @@
 import { Wallet } from 'ethers'
-import { TransactionReceipt } from '@ethersproject/abstract-provider'
 import { getVaults, Vault } from './vaults'
 import { deposit } from './helpers/deposit'
 import { TransactionsResponse } from './helpers/transaction'

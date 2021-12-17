@@ -98,10 +98,10 @@ On every `twoPi` instance you can access the following attributes:
   * `message`?: in case of error, the overall main reason description.
   * `cursor`?: in case of error, the index (zero based) of the failed transaction.
 * `async withdraw({amount, vaultIdentifier, unit?})` it makes a withdraw on the given pool. For `amount` prefer string to keep precision. If `unit` is `'wei'` (default) amount would not be converted. If `unit` is `'native'` the provided amount would be interpreted like fetched directly from some UI (for example 1 for ETH would be converted to `1 * 1e18`). The `vaultIdentifier` argument can be omitted, the only (and default) options for the time being is `mumbai_dai`. Returns an object with the following attributes:
-  * `status`: can be 'success' or 'error'
+  * `status`: can be 'success', 'failed' or 'error'
   * `transactions`?: array of executed transactions as [transaction receipts](https://docs.ethers.io/v5/single-page/#/v5/api/providers/types/-%23-providers-TransactionReceipt) (in case of error, the last one should have the required information to trace the reason).
-  * `message`?: in case of error, the overall main reason description.
-  * `cursor`?: in case of error, the index (zero based) of the failed transaction.
+  * `message`?: in case of failed or error, the overall main reason description.
+  * `cursor`?: in case of failed or error, the index (zero based) of the failed transaction.
 
 ### Vault private attributes
 
