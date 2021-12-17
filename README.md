@@ -35,8 +35,18 @@ const main = async () => {
   const apiKey    = process.env.API_KEY
   const apiSecret = process.env.API_SECRET
   const twoPi     = new TwoPi({ mnemonic, apiKey, apiSecret })
+  const vaults    = await twoPi.getVaults()
 
-  console.log(await twoPi.getVaults())
+  vaults.forEach(vault => {
+    console.log('Identifier',    vault.identifier)
+    console.log('PID',           vault.pid)
+    console.log('Token',         vault.token)
+    console.log('Address',       vault.address)
+    console.log('Token address', vault.tokenAddress)
+    console.log('APY',           vault.apy)
+    console.log('Balances',      vault.balances)
+    console.log('Deposits',      vault.deposits)
+  })
 }
 
 main().then(() => {
@@ -82,8 +92,16 @@ On every `twoPi` instance you can access the following attributes:
 
 * `constructor({mnemonic, apiKey, apiSecret, endpoint?})` returns a new instance. Refer to [TwoPi public attributes](#twopi-public-attributes) to get a description of each argument.
 * `async getVaults()` it returns an array of available vaults (each of which are Vault instances).
-* `async deposit({amount, poolId?, unit?})` it makes a deposit on the given pool and returns an array of [transaction receipts](https://docs.ethers.io/v5/single-page/#/v5/api/providers/types/-%23-providers-TransactionReceipt). For `amount` prefer string to keep precision. If `unit` is `'wei'` (default) amount would not be converted. If `unit` is `'native'` the provided amount would be interpreted like fetched directly from some UI (for example 1 for ETH would be converted to `1 * 1e18`). The `poolId` argument can be omitted, the only (and default) options for the time being is `mumbai_dai`.
-* `async withdraw({amount, poolId?, unit?})` it makes a withdraw on the given pool and returns an array of [transaction receipts](https://docs.ethers.io/v5/single-page/#/v5/api/providers/types/-%23-providers-TransactionReceipt). For `amount` prefer string to keep precision. If `unit` is `'wei'` (default) amount would not be converted. If `unit` is `'native'` the provided amount would be interpreted like fetched directly from some UI (for example 1 for ETH would be converted to `1 * 1e18`). The `poolId` argument can be omitted, the only (and default) options for the time being is `mumbai_dai`.
+* `async deposit({amount, vaultIdentifier, unit?})` it makes a deposit on the given pool. For `amount` prefer string to keep precision. If `unit` is `'wei'` (default) amount would not be converted. If `unit` is `'native'` the provided amount would be interpreted like fetched directly from some UI (for example 1 for ETH would be converted to `1 * 1e18`). The `vaultIdentifier` argument can be omitted, the only (and default) options for the time being is `mumbai_dai`.
+  * `status`: can be 'success' or 'error'
+  * `transactions`?: array of executed transactions as [transaction receipts](https://docs.ethers.io/v5/single-page/#/v5/api/providers/types/-%23-providers-TransactionReceipt) (in case of error, the last one should have the required information to trace the reason).
+  * `message`?: in case of error, the overall main reason description.
+  * `cursor`?: in case of error, the index (zero based) of the failed transaction.
+* `async withdraw({amount, vaultIdentifier, unit?})` it makes a withdraw on the given pool. For `amount` prefer string to keep precision. If `unit` is `'wei'` (default) amount would not be converted. If `unit` is `'native'` the provided amount would be interpreted like fetched directly from some UI (for example 1 for ETH would be converted to `1 * 1e18`). The `vaultIdentifier` argument can be omitted, the only (and default) options for the time being is `mumbai_dai`. Returns an object with the following attributes:
+  * `status`: can be 'success' or 'error'
+  * `transactions`?: array of executed transactions as [transaction receipts](https://docs.ethers.io/v5/single-page/#/v5/api/providers/types/-%23-providers-TransactionReceipt) (in case of error, the last one should have the required information to trace the reason).
+  * `message`?: in case of error, the overall main reason description.
+  * `cursor`?: in case of error, the index (zero based) of the failed transaction.
 
 ### Vault private attributes
 
@@ -95,10 +113,12 @@ On every `vault` instance you can access the following attributes:
 * `address`: string with the vault main contract address.
 * `tokenAddress`: string with the vault token address.
 * `apy`: the current vault [APY](https://en.wikipedia.org/wiki/Annual_percentage_yield).
+* `balances`: array of the current balances of the registered wallets (represented in objects `{ wallet: string, amount: number }`).
+* `deposits`: array of the current deposits of the registered wallets (represented in objects `{ wallet: string, amount: number }`).
 
 ### Vault private methods
 
-* `constructor({identifier, pid, token, address, tokenAddress, apy})` refer to [Vault private attributes](#vault-private-attributes) to get a description of each argument and attribute.
+* `constructor({identifier, pid, token, address, tokenAddress, apy, balances, deposits})` refer to [Vault private attributes](#vault-private-attributes) to get a description of each argument and attribute.
 
 ## Warning
 

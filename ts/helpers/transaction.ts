@@ -3,10 +3,17 @@ import { TransactionReceipt } from '@ethersproject/abstract-provider'
 import { getSigner } from './ethers'
 import TwoPi from '../twoPi'
 
+export type TransactionsResponse = Promise<{
+  status:    string,
+  message?:  string,
+  cursor?:   number,
+  receipts?: Array<TransactionReceipt>
+}>
+
 export const processTransactionResponse = async (
   twoPi: TwoPi,
   response: AxiosResponse
-): Promise<Array<TransactionReceipt>> => {
+): TransactionsResponse => {
   const receipts = []
 
   if (response.status === 200) {
@@ -26,13 +33,21 @@ export const processTransactionResponse = async (
 
         // Status === 1 means success, 0 means it was rejected
         if (! transactionReceipt.status) {
-          throw new Error(`${description} transaction failed (${transactionReceipt.transactionHash})`)
+          return {
+            status:  'error',
+            cursor:  receipts.length,
+            message: `${description} transaction failed (${transactionReceipt.transactionHash})`,
+            receipts
+          }
         }
       }
     }
 
-    return receipts
+    return { status: 'success', receipts }
   } else {
-    throw new Error(`Withdraw response status was ${response.status} (and 200 was expected)`)
+    return {
+      status:  'error',
+      message: `Withdraw response status was ${response.status} (and 200 was expected)`
+    }
   }
 }

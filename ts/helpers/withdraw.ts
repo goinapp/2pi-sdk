@@ -1,7 +1,7 @@
 import { TransactionReceipt } from '@ethersproject/abstract-provider'
 import routes from './routes.json'
 import { post } from './request'
-import { processTransactionResponse } from './transaction'
+import { processTransactionResponse, TransactionsResponse } from './transaction'
 import TwoPi from '../twoPi'
 
 type Withdraw = {
@@ -13,7 +13,7 @@ type Withdraw = {
 export const withdraw = async (
   twoPi: TwoPi,
   { amount, vaultIdentifier, unit }: Withdraw
-): Promise<Array<TransactionReceipt>> => {
+): TransactionsResponse => {
   const data     = { withdraw: { amount, unit, vault_identifier: vaultIdentifier } }
   const response = await post(twoPi, routes.withdrawsPath, data)
 
