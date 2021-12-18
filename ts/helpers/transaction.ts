@@ -18,8 +18,8 @@ const registerTransaction = async (
   vaultIdentifier: string,
   receipt:         TransactionReceipt
 ): Promise<TransactionReceipt | undefined> => {
+  const path = routes.transactionsPath.replace(/{wallet_id}/g, twoPi.address)
   const data = {
-    wallet_id:   twoPi.address,
     transaction: {
       id:                  receipt.transactionHash,
       contract_identifier: vaultIdentifier
@@ -27,7 +27,7 @@ const registerTransaction = async (
   }
 
   try {
-    await post(twoPi, routes.transactionsPath, data)
+    await post(twoPi, path, data)
 
     return receipt
   } catch (error) {
