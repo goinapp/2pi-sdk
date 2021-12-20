@@ -1,8 +1,16 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import routes from './routes.json'
 import TwoPi from '../twoPi'
 
 const store = new Map()
+
+const saveToken = (response: AxiosResponse): string => {
+  const { token, valid_until: validUntil } = response.data.data
+
+  store.set('token', { token, validUntil: new Date(validUntil) })
+
+  return token
+}
 
 const init = async (twoPi: TwoPi): Promise<string> => {
   const url      = `${twoPi.endpoint}/${routes.sessionsPath}`
@@ -12,11 +20,7 @@ const init = async (twoPi: TwoPi): Promise<string> => {
   })
 
   if (response.status === 200) {
-    const { token, valid_until: validUntil } = response.data.data
-
-    store.set('token', { token, validUntil: new Date(validUntil) })
-
-    return token
+    return saveToken(response)
   } else {
     throw new Error(`Authentication failed, response status was ${response.status} (expecting 200)`)
   }
@@ -28,11 +32,7 @@ const refresh = async (twoPi: TwoPi, token: string): Promise<string> => {
   const response = await axios.patch(url, {}, config)
 
   if (response.status === 200) {
-    const { token, valid_until: validUntil } = response.data.data
-
-    store.set('token', { token, validUntil: new Date(validUntil) })
-
-    return token
+    return saveToken(response)
   } else {
     throw new Error(`Authentication failed, response status was ${response.status} (expecting 200)`)
   }
