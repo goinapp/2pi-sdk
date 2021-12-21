@@ -3,7 +3,7 @@
   "version": "0.1.0-alpha.14",
   "author": "2PI",
   "main": "./dist/index.js",
-  "homepage": "https://github.com/2pinetwork/tps",
+  "homepage": "https://github.com/2pinetwork/sdk",
   "license": "MIT",
   "scripts": {
     "build": "tsc --module commonjs",
@@ -14,10 +14,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/2pinetwork/tps.git"
+    "url": "git+https://github.com/2pinetwork/sdk.git"
   },
   "bugs": {
-    "url": "https://github.com/2pinetwork/tps/issues"
+    "url": "https://github.com/2pinetwork/sdk/issues"
   },
   "devDependencies": {
     "@types/node": "^17.0.1",
