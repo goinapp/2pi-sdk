@@ -6,6 +6,7 @@ import { withdraw } from './helpers/withdraw'
 
 type Constructor = {
   mnemonic:  string,
+  path?:     string,
   apiKey:    string,
   apiSecret: string,
   endpoint?: string
@@ -25,15 +26,17 @@ type Withdraw = {
 
 export default class TwoPi {
   readonly mnemonic:  string
+  readonly path?:     string
   readonly address:   string
   readonly apiKey:    string
   readonly apiSecret: string
   readonly endpoint:  string
   readonly wallet:    Wallet
 
-  constructor({ mnemonic, apiKey, apiSecret, endpoint }: Constructor) {
+  constructor({ mnemonic, path, apiKey, apiSecret, endpoint }: Constructor) {
     this.mnemonic  = mnemonic
-    this.wallet    = Wallet.fromMnemonic(mnemonic)
+    this.path      = path
+    this.wallet    = Wallet.fromMnemonic(mnemonic, path)
     this.address   = this.wallet.address
     this.apiKey    = apiKey
     this.apiSecret = apiSecret

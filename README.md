@@ -82,6 +82,7 @@ This is the entry point of almost any interaction. You will be asked to provide 
 On every `twoPi` instance you can access the following attributes:
 
 * `mnemonic`: the provided mnemonic for this instance.
+* `path?`: the provided derivation path for this instance (defaults to `m/44'/60'/0'/0/0`).
 * `address`: the public address derived from the provided mnemonic.
 * `apiKey`: the provided API key.
 * `apiSecret`: the provided API secret.
@@ -90,7 +91,7 @@ On every `twoPi` instance you can access the following attributes:
 
 ### TwoPi public methods
 
-* `constructor({mnemonic, apiKey, apiSecret, endpoint?})` returns a new instance. Refer to [TwoPi public attributes](#twopi-public-attributes) to get a description of each argument.
+* `constructor({mnemonic, path?, apiKey, apiSecret, endpoint?})` returns a new instance. Refer to [TwoPi public attributes](#twopi-public-attributes) to get a description of each argument.
 * `async getVaults()` it returns an array of available vaults (each of which are Vault instances).
 * `async deposit({amount, vaultIdentifier, unit?})` it makes a deposit on the given pool. For `amount` prefer string to keep precision. If `unit` is `'wei'` (default) amount would not be converted. If `unit` is `'native'` the provided amount would be interpreted like fetched directly from some UI (for example 1 for ETH would be converted to `1 * 1e18`). The `vaultIdentifier` argument can be omitted, the only (and default) options for the time being is `mumbai_dai`.
   * `status`: can be 'success' or 'error'
