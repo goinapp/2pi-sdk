@@ -7,14 +7,16 @@ type Deposit = {
   amount:          string,
   vaultIdentifier: 'mumbai_dai',
   unit:            'native' | 'wei'
+  referrer?:       string
 }
 
 export const deposit = async (
   twoPi: TwoPi,
-  { amount, vaultIdentifier, unit }: Deposit
+  { amount, vaultIdentifier, unit, referrer }: Deposit
 ): TransactionsResponse => {
-  const data     = { deposit: { amount, unit, vault_identifier: vaultIdentifier } }
-  const response = await post(twoPi, routes.depositsPath, data)
+  const response = await post(twoPi, routes.depositsPath, {
+    deposit: { amount, unit, referrer, vault_identifier: vaultIdentifier }
+  })
 
   return await processTransactionResponse(twoPi, vaultIdentifier, response)
 }

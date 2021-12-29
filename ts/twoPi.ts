@@ -16,6 +16,7 @@ type Deposit = {
   amount:          string
   vaultIdentifier: 'mumbai_dai'
   unit:            'native' | 'wei' | undefined
+  referrer?:       string
 }
 
 type Withdraw = {
@@ -47,10 +48,16 @@ export default class TwoPi {
     return await getVaults(this)
   }
 
-  async deposit({ amount, vaultIdentifier, unit }: Deposit): TransactionsResponse {
+  async deposit({
+    amount,
+    vaultIdentifier,
+    unit,
+    referrer
+  }: Deposit): TransactionsResponse {
     return await deposit(this, {
       amount,
       vaultIdentifier,
+      referrer,
       unit: unit || 'wei'
     })
   }
