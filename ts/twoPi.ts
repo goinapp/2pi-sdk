@@ -5,11 +5,11 @@ import { TransactionsResponse } from './helpers/transaction'
 import { withdraw } from './helpers/withdraw'
 
 type Constructor = {
-  mnemonic:  string,
-  path?:     string,
-  apiKey:    string,
-  apiSecret: string,
-  endpoint?: string
+  mnemonic:   string,
+  path?:      string,
+  apiKey?:    string,
+  apiSecret?: string,
+  endpoint?:  string
 }
 
 type Deposit = {
@@ -26,13 +26,13 @@ type Withdraw = {
 }
 
 export default class TwoPi {
-  readonly mnemonic:  string
-  readonly path?:     string
-  readonly address:   string
-  readonly apiKey:    string
-  readonly apiSecret: string
-  readonly endpoint:  string
-  readonly wallet:    Wallet
+  readonly mnemonic:   string
+  readonly path?:      string
+  readonly address:    string
+  readonly apiKey?:    string
+  readonly apiSecret?: string
+  readonly endpoint:   string
+  readonly wallet:     Wallet
 
   constructor({ mnemonic, path, apiKey, apiSecret, endpoint }: Constructor) {
     this.mnemonic  = mnemonic

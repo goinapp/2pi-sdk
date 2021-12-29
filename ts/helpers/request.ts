@@ -5,10 +5,14 @@ import TwoPi from '../twoPi'
 const initialConfig = async (
   twoPi: TwoPi
 ): Promise<AxiosRequestConfig<Record<string, unknown>>> => {
-  const token = await getValidToken(twoPi)
+  if (twoPi.apiKey && twoPi.apiSecret) {
+    const token = await getValidToken(twoPi)
 
-  return {
-    headers: getAuthHeader(token)
+    return {
+      headers: getAuthHeader(token)
+    }
+  } else {
+    return {}
   }
 }
 
