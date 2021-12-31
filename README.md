@@ -105,6 +105,9 @@ On every `twoPi` instance you can access the following attributes:
   * `transactions`?: array of executed transactions as [transaction receipts](https://docs.ethers.io/v5/single-page/#/v5/api/providers/types/-%23-providers-TransactionReceipt) (in case of error, the last one should have the required information to trace the reason).
   * `message`?: in case of failed or error, the overall main reason description.
   * `cursor`?: in case of failed or error, the index (zero based) of the failed transaction.
+* `async faucet({network, address})` it transfer some native tokens to the given `address`. You should ask our team to enable this feature (use the Discord channel below). For `network` the only allowed value for the time being is `'polygon'`. If `address` has already the minimum native token balance (0.1 MATIC on Polygon) nothing is done, it gets completed to this value otherwise. Returns an object with the following attributes:
+  * `status`: can be 'success', 'error'
+  * `message`?: in case of failed or error, the overall main reason description.
 
 ### Vault private attributes
 

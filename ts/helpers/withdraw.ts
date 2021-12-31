@@ -14,7 +14,7 @@ export const withdraw = async (
   { amount, vaultIdentifier, unit }: Withdraw
 ): TransactionsResponse => {
   const data     = { withdraw: { amount, unit, vault_identifier: vaultIdentifier } }
-  const response = await post(twoPi, routes.withdrawsPath, data)
+  const response = await post(twoPi, routes.withdrawsPath, data, 422)
 
   return await processTransactionResponse(twoPi, vaultIdentifier, response)
 }

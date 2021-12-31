@@ -1,6 +1,7 @@
 import { Wallet } from 'ethers'
 import { getVaults, Vault } from './vaults'
 import { deposit } from './helpers/deposit'
+import { faucet } from './helpers/faucet'
 import { TransactionsResponse } from './helpers/transaction'
 import { withdraw } from './helpers/withdraw'
 
@@ -23,6 +24,11 @@ type Withdraw = {
   amount:          string
   vaultIdentifier: 'mumbai_dai'
   unit:            'native' | 'wei' | undefined
+}
+
+type Faucet = {
+  network: 'polygon'
+  address: string
 }
 
 export default class TwoPi {
@@ -68,5 +74,9 @@ export default class TwoPi {
       vaultIdentifier,
       unit: unit || 'wei'
     })
+  }
+
+  async faucet({ network, address }: Faucet): TransactionsResponse {
+    return await faucet(this, { network, address })
   }
 }

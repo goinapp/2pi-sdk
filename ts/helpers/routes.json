@@ -1,5 +1,6 @@
 {
   "depositsPath": "v1/deposits",
+  "faucetPath": "v1/faucet",
   "sessionsPath": "v1/sessions",
   "transactionsPath": "v1/wallets/{wallet_id}/transactions",
   "vaultsPath": "v1/vaults",
