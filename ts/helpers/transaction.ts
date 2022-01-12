@@ -18,50 +18,54 @@ const registerTransaction = async (
   vaultIdentifier: string,
   receipt:         TransactionReceipt
 ): Promise<TransactionReceipt | undefined> => {
-  const path = routes.transactionsPath.replace(/{wallet_id}/g, twoPi.address)
-  const data = {
-    transaction: {
-      id:                  receipt.transactionHash,
-      contract_identifier: vaultIdentifier
+  if (twoPi.address) {
+    const path = routes.transactionsPath.replace(/{wallet_id}/g, twoPi.address)
+    const data = {
+      transaction: {
+        id:                  receipt.transactionHash,
+        contract_identifier: vaultIdentifier
+      }
     }
-  }
 
-  try {
-    await post(twoPi, path, data)
+    try {
+      await post(twoPi, path, data)
 
-    return receipt
-  } catch (error) {
-    console.error(error)
+      return receipt
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
 const processTransaction = async (
   twoPi:           TwoPi,
-  signer:          Wallet,
+  signer:          Wallet | undefined,
   vaultIdentifier: string,
   transaction:     Record<string, unknown>,
   description:     string,
   receipts:        Array<TransactionReceipt>
 ): Promise<TransactionsResponse | undefined> => {
-  try {
-    const response   = await signer.sendTransaction(transaction)
-    const receipt    = await response.wait()
-    const registered = await registerTransaction(twoPi, vaultIdentifier, receipt)
+  if (signer) {
+    try {
+      const response   = await signer.sendTransaction(transaction)
+      const receipt    = await response.wait()
+      const registered = await registerTransaction(twoPi, vaultIdentifier, receipt)
 
-    receipts.push(receipt)
+      receipts.push(receipt)
 
-    // Status === 1 means success, 0 means it was rejected
-    if (! registered?.status) {
-      const hash    = receipt.transactionHash
-      const message = `${description} transaction failed (${hash})`
+      // Status === 1 means success, 0 means it was rejected
+      if (! registered?.status) {
+        const hash    = receipt.transactionHash
+        const message = `${description} transaction failed (${hash})`
 
-      return { status: 'error', cursor: receipts.length, message, receipts }
+        return { status: 'error', cursor: receipts.length, message, receipts }
+      }
+    } catch (error) {
+      const { reason } = Object(error)
+      const message    = reason || 'Unknown error'
+
+      return { status: 'failed', cursor: receipts.length, message, receipts }
     }
-  } catch (error) {
-    const { reason } = Object(error)
-    const message    = reason || 'Unknown error'
-
-    return { status: 'failed', cursor: receipts.length, message, receipts }
   }
 }
 

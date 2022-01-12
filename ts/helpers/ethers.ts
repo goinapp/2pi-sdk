@@ -7,8 +7,11 @@ type Provider = {
   chainId: number
 }
 
-export const getSigner = (twoPi: TwoPi, { rpcUrl, chainId }: Provider): Wallet => {
+export const getSigner = (
+  twoPi:               TwoPi,
+  { rpcUrl, chainId }: Provider
+): Wallet | undefined => {
   const provider = new JsonRpcProvider(rpcUrl, chainId)
 
-  return twoPi.wallet.connect(provider)
+  return twoPi.wallet?.connect(provider)
 }
