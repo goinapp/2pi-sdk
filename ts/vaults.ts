@@ -19,6 +19,7 @@ type Constructor = {
   address:      string
   tokenAddress: string
   apy:          number,
+  tvl:          number,
   balances:     Array<Balance>,
   deposits:     Array<Deposit>
 }
@@ -30,6 +31,7 @@ export class Vault {
   readonly address:      string
   readonly tokenAddress: string
   readonly apy:          number
+  readonly tvl:          number
   readonly balances:     Array<Balance>
   readonly deposits:     Array<Deposit>
 
@@ -40,6 +42,7 @@ export class Vault {
     address,
     tokenAddress,
     apy,
+    tvl,
     balances,
     deposits
   }: Constructor) {
@@ -49,6 +52,7 @@ export class Vault {
     this.address      = address
     this.tokenAddress = tokenAddress
     this.apy          = apy
+    this.tvl          = tvl
     this.balances     = balances
     this.deposits     = deposits
   }
@@ -56,6 +60,7 @@ export class Vault {
 
 type VaultData = {
   apy:              number,
+  tvl:              number,
   contract_address: string,
   identifier:       string,
   pid:              number,
@@ -71,6 +76,7 @@ export const getVaults = async (twoPi: TwoPi): Promise<Array<Vault>> => {
   return response.data.data.map((vault: VaultData): Vault => {
     const {
       apy,
+      tvl,
       contract_address: address,
       identifier,
       pid,
@@ -83,6 +89,7 @@ export const getVaults = async (twoPi: TwoPi): Promise<Array<Vault>> => {
     return new Vault({
       address,
       apy,
+      tvl,
       identifier,
       pid,
       token,

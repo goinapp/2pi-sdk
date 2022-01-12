@@ -44,6 +44,7 @@ const main = async () => {
     console.log('Address',       vault.address)
     console.log('Token address', vault.tokenAddress)
     console.log('APY',           vault.apy)
+    console.log('TVL',           vault.tvl)
     console.log('Balances',      vault.balances)
     console.log('Deposits',      vault.deposits)
   })
@@ -119,12 +120,13 @@ On every `vault` instance you can access the following attributes:
 * `address`: string with the vault main contract address.
 * `tokenAddress`: string with the vault token address.
 * `apy`: the current vault [APY](https://en.wikipedia.org/wiki/Annual_percentage_yield).
+* `tvl`: the current vault TVL expressed in wei of the underlying token.
 * `balances`: array of the current balances of the registered wallets (represented in objects `{ wallet: string, amount: number }`).
 * `deposits`: array of the current deposits of the registered wallets (represented in objects `{ wallet: string, amount: number }`).
 
 ### Vault private methods
 
-* `constructor({identifier, pid, token, address, tokenAddress, apy, balances, deposits})` refer to [Vault private attributes](#vault-private-attributes) to get a description of each argument and attribute.
+* `constructor({identifier, pid, token, address, tokenAddress, apy, tvl, balances, deposits})` refer to [Vault private attributes](#vault-private-attributes) to get a description of each argument and attribute.
 
 ## Warning
 
@@ -133,3 +135,5 @@ Always be careful when storing mnemonic and API keys / secret data.
 # Let's talk!
 
 * [Join our #devs](https://discord.gg/fyc42N2d) channel on Discord!
+
+*[TVL]: Total Value Locked
