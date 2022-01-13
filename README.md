@@ -38,15 +38,17 @@ const main = async () => {
   const vaults    = await twoPi.getVaults()
 
   vaults.forEach(vault => {
-    console.log('Identifier',    vault.identifier)
-    console.log('PID',           vault.pid)
-    console.log('Token',         vault.token)
-    console.log('Address',       vault.address)
-    console.log('Token address', vault.tokenAddress)
-    console.log('APY',           vault.apy)
-    console.log('TVL',           vault.tvl)
-    console.log('Balances',      vault.balances)
-    console.log('Deposits',      vault.deposits)
+    console.log('Identifier',     vault.identifier)
+    console.log('PID',            vault.pid)
+    console.log('Token',          vault.token)
+    console.log('Address',        vault.address)
+    console.log('Token address',  vault.tokenAddress)
+    console.log('Token decimals', vault.tokenDecimals)
+    console.log('Vault decimals', vault.vaultDecimals)
+    console.log('APY',            vault.apy)
+    console.log('TVL',            vault.tvl)
+    console.log('Balances',       vault.balances)
+    console.log('Deposits',       vault.deposits)
   })
 }
 
@@ -119,14 +121,16 @@ On every `vault` instance you can access the following attributes:
 * `token`: string identifying the token being maximized.
 * `address`: string with the vault main contract address.
 * `tokenAddress`: string with the vault token address.
+* `tokenDecimals`: how many decimals to consider for the token.
+* `vaultDecimals`: how many decimals to consider for the vault.
 * `apy`: the current vault [APY](https://en.wikipedia.org/wiki/Annual_percentage_yield).
-* `tvl`: the current vault TVL expressed in wei of the underlying token.
+* `tvl`: the current vault <abbr title="Total Value Locked">TVL</abbr> expressed in wei of the underlying token.
 * `balances`: array of the current balances of the registered wallets (represented in objects `{ wallet: string, amount: number }`).
 * `deposits`: array of the current deposits of the registered wallets (represented in objects `{ wallet: string, amount: number }`).
 
 ### Vault private methods
 
-* `constructor({identifier, pid, token, address, tokenAddress, apy, tvl, balances, deposits})` refer to [Vault private attributes](#vault-private-attributes) to get a description of each argument and attribute.
+* `constructor({identifier, pid, token, address, tokenAddress, tokenDecimals, vaultDecimals, apy, tvl, balances, deposits})` refer to [Vault private attributes](#vault-private-attributes) to get a description of each argument and attribute.
 
 ## Warning
 
@@ -135,5 +139,3 @@ Always be careful when storing mnemonic and API keys / secret data.
 # Let's talk!
 
 * [Join our #devs](https://discord.gg/fyc42N2d) channel on Discord!
-
-*[TVL]: Total Value Locked
