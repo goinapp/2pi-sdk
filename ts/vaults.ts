@@ -81,7 +81,8 @@ type VaultData = {
 }
 
 export const getVaults = async (twoPi: TwoPi): Promise<Array<Vault>> => {
-  const response = await get(twoPi, routes.vaultsPath)
+  const params   = twoPi.networks ? { only: twoPi.networks } : undefined
+  const response = await get(twoPi, routes.vaultsPath, params)
 
   return response.data.data.map((vault: VaultData): Vault => {
     const {

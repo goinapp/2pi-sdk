@@ -6,11 +6,12 @@ import { TransactionsResponse } from './helpers/transaction'
 import { withdraw } from './helpers/withdraw'
 
 type Constructor = {
-  mnemonic?:  string,
-  path?:      string,
-  apiKey?:    string,
-  apiSecret?: string,
+  mnemonic?:  string
+  path?:      string
+  apiKey?:    string
+  apiSecret?: string
   endpoint?:  string
+  networks?:  Array<string>
 }
 
 type Deposit = {
@@ -38,9 +39,10 @@ export default class TwoPi {
   readonly apiKey?:    string
   readonly apiSecret?: string
   readonly endpoint:   string
+  readonly networks?:  Array<string>
   readonly wallet?:    Wallet
 
-  constructor({ mnemonic, path, apiKey, apiSecret, endpoint }: Constructor) {
+  constructor({ mnemonic, path, apiKey, apiSecret, endpoint, networks }: Constructor) {
     this.mnemonic  = mnemonic
     this.path      = path
     this.wallet    = mnemonic ? Wallet.fromMnemonic(mnemonic, path) : undefined
@@ -48,6 +50,7 @@ export default class TwoPi {
     this.apiKey    = apiKey
     this.apiSecret = apiSecret
     this.endpoint  = endpoint || 'https://api.2pi.network'
+    this.networks  = networks
   }
 
   async getVaults(): Promise<Array<Vault>> {

@@ -86,17 +86,18 @@ On every `twoPi` instance you can access the following attributes:
 
 * `mnemonic?`: the provided mnemonic for this instance.
 * `path?`: the provided derivation path for this instance (defaults to `m/44'/60'/0'/0/0`).
-* `address`: the public address derived from the provided mnemonic.
+* `address?`: the public address derived from the provided mnemonic.
 * `apiKey?`: the provided API key. [^1]
 * `apiSecret?`: the provided API secret. [^1]
 * `endpoint`: the API endpoint in use.
+* `networks?`: just interact with the given networks.
 * `wallet`: the wallet instance, derived from the provided mnemonic.
 
 [^1]: If not provided, you can still use all the unauthenticated operations (`getVaults()`, `deposit(...)` and `withdraw(...)`).
 
 ### TwoPi public methods
 
-* `constructor({mnemonic?, path?, apiKey?, apiSecret?, endpoint?})` returns a new instance. Refer to [TwoPi public attributes](#twopi-public-attributes) to get a description of each argument.
+* `constructor({mnemonic?, path?, apiKey?, apiSecret?, endpoint?, networks?})` returns a new instance. Refer to [TwoPi public attributes](#twopi-public-attributes) to get a description of each argument.
 * `async getVaults()` it returns an array of available vaults (each of which are Vault instances).
 * `async deposit({amount, vaultIdentifier, unit?, referrer?})` it makes a deposit on the given pool. For `amount` prefer string to keep precision. If `unit` is `'wei'` (default) amount would not be converted. If `unit` is `'native'` the provided amount would be interpreted like fetched directly from some UI (for example 1 for ETH would be converted to `1 * 1e18`). The `vaultIdentifier` argument can be omitted, the only (and default) options for the time being is `mumbai_dai`. The `referrer` argument can be an address to associate who brought the user making the deposit (only assigned on the very first call for any given sender, after that is ignored).
   * `status`: can be 'success' or 'error'

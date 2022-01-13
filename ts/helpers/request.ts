@@ -28,12 +28,13 @@ const validateStatus = (expected: number) => {
 }
 
 export const get = async (
-  twoPi: TwoPi,
-  path:  string
+  twoPi:  TwoPi,
+  path:   string,
+  params: Record<string, unknown> | undefined
 ): Promise<AxiosResponse> => {
   const config = await initialConfig(twoPi)
 
-  return await axios.get(`${twoPi.endpoint}/${path}`, config)
+  return await axios.get(`${twoPi.endpoint}/${path}`, { ...config, params })
 }
 
 export const post = async (
