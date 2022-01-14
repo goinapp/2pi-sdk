@@ -26,6 +26,10 @@ type Constructor = {
   deposits:      Array<Deposit>
 }
 
+export type Filter = {
+  networks: Array<string> | undefined
+} | undefined
+
 export class Vault {
   readonly identifier:    string
   readonly pid:           number
@@ -80,8 +84,8 @@ type VaultData = {
   deposits:         Array<Deposit>
 }
 
-export const getVaults = async (twoPi: TwoPi): Promise<Array<Vault>> => {
-  const params   = twoPi.networks ? { only: twoPi.networks } : undefined
+export const getVaults = async (twoPi: TwoPi, filter: Filter): Promise<Array<Vault>> => {
+  const params   = filter?.networks ? { only: filter.networks } : undefined
   const response = await get(twoPi, routes.vaultsPath, params)
 
   return response.data.data.map((vault: VaultData): Vault => {

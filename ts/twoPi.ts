@@ -1,5 +1,5 @@
 import { Wallet } from 'ethers'
-import { getVaults, Vault } from './vaults'
+import { getVaults, Vault, Filter } from './vaults'
 import { deposit } from './helpers/deposit'
 import { faucet } from './helpers/faucet'
 import { TransactionsResponse } from './helpers/transaction'
@@ -11,7 +11,6 @@ type Constructor = {
   apiKey?:    string
   apiSecret?: string
   endpoint?:  string
-  networks?:  Array<string>
 }
 
 type Deposit = {
@@ -39,10 +38,9 @@ export default class TwoPi {
   readonly apiKey?:    string
   readonly apiSecret?: string
   readonly endpoint:   string
-  readonly networks?:  Array<string>
   readonly wallet?:    Wallet
 
-  constructor({ mnemonic, path, apiKey, apiSecret, endpoint, networks }: Constructor) {
+  constructor({ mnemonic, path, apiKey, apiSecret, endpoint }: Constructor) {
     this.mnemonic  = mnemonic
     this.path      = path
     this.wallet    = mnemonic ? Wallet.fromMnemonic(mnemonic, path) : undefined
@@ -50,11 +48,10 @@ export default class TwoPi {
     this.apiKey    = apiKey
     this.apiSecret = apiSecret
     this.endpoint  = endpoint || 'https://api.2pi.network'
-    this.networks  = networks
   }
 
-  async getVaults(): Promise<Array<Vault>> {
-    return await getVaults(this)
+  async getVaults(filter: Filter): Promise<Array<Vault>> {
+    return await getVaults(this, filter)
   }
 
   async deposit({

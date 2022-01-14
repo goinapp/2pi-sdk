@@ -90,15 +90,14 @@ On every `twoPi` instance you can access the following attributes:
 * `apiKey?`: the provided API key. [^1]
 * `apiSecret?`: the provided API secret. [^1]
 * `endpoint`: the API endpoint in use.
-* `networks?`: just interact with the given networks.
 * `wallet`: the wallet instance, derived from the provided mnemonic.
 
 [^1]: If not provided, you can still use all the unauthenticated operations (`getVaults()`, `deposit(...)` and `withdraw(...)`).
 
 ### TwoPi public methods
 
-* `constructor({mnemonic?, path?, apiKey?, apiSecret?, endpoint?, networks?})` returns a new instance. Refer to [TwoPi public attributes](#twopi-public-attributes) to get a description of each argument.
-* `async getVaults()` it returns an array of available vaults (each of which are Vault instances).
+* `constructor({mnemonic?, path?, apiKey?, apiSecret?, endpoint?})` returns a new instance. Refer to [TwoPi public attributes](#twopi-public-attributes) to get a description of each argument.
+* `async getVaults({networks?})` it returns an array of available vaults (each of which are Vault instances). You can give an optional filter object like `{networks: ['mumbai']}` to narrow the results to the specified networks.
 * `async deposit({amount, vaultIdentifier, unit?, referrer?})` it makes a deposit on the given pool. For `amount` prefer string to keep precision. If `unit` is `'wei'` (default) amount would not be converted. If `unit` is `'native'` the provided amount would be interpreted like fetched directly from some UI (for example 1 for ETH would be converted to `1 * 1e18`). The `vaultIdentifier` argument can be omitted, the only (and default) options for the time being is `mumbai_dai`. The `referrer` argument can be an address to associate who brought the user making the deposit (only assigned on the very first call for any given sender, after that is ignored).
   * `status`: can be 'success' or 'error'
   * `transactions`?: array of executed transactions as [transaction receipts](https://docs.ethers.io/v5/single-page/#/v5/api/providers/types/-%23-providers-TransactionReceipt) (in case of error, the last one should have the required information to trace the reason).
