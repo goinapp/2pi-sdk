@@ -1,6 +1,6 @@
 {
   "name": "@2pi-network/sdk",
-  "version": "0.1.0-alpha.23",
+  "version": "0.1.0-alpha.24",
   "author": "2PI",
   "main": "./dist/index.js",
   "homepage": "https://github.com/2pinetwork/sdk",
@@ -20,15 +20,15 @@
     "url": "https://github.com/2pinetwork/sdk/issues"
   },
   "devDependencies": {
-    "@types/node": "^17.0.8",
-    "@typescript-eslint/eslint-plugin": "^5.9.1",
-    "@typescript-eslint/parser": "^5.9.1",
-    "eslint": "^8.6.0",
-    "typedoc": "^0.22.10",
+    "@types/node": "^17.0.10",
+    "@typescript-eslint/eslint-plugin": "^5.10.0",
+    "@typescript-eslint/parser": "^5.10.0",
+    "eslint": "^8.7.0",
+    "typedoc": "^0.22.11",
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "axios": "^0.24.0",
+    "axios": "^0.25.0",
     "ethers": "^5.5.3"
   },
   "publishConfig": {
