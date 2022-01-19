@@ -124,9 +124,9 @@ On every `vault` instance you can access the following attributes:
 * `tokenDecimals`: how many decimals to consider for the token.
 * `vaultDecimals`: how many decimals to consider for the vault.
 * `apy`: the current vault [APY](https://en.wikipedia.org/wiki/Annual_percentage_yield).
-* `tvl`: the current vault <abbr title="Total Value Locked">TVL</abbr> expressed in wei of the underlying token.
-* `balances`: array of the current balances of the registered wallets (represented in objects `{ wallet: string, amount: number }`).
-* `deposits`: array of the current deposits of the registered wallets (represented in objects `{ wallet: string, amount: number }`).
+* `tvl`: the current vault <abbr title="Total Value Locked">TVL</abbr> expressed in wei of the underlying token (as string).
+* `balances`: array of the current balances of the registered wallets (represented in objects `{ wallet: string, amount: string }`).
+* `deposits`: array of the current deposits of the registered wallets (represented in objects `{ wallet: string, amount: string }`).
 
 ### Vault private methods
 

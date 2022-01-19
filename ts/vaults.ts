@@ -18,10 +18,10 @@ type Constructor = {
   token:         string
   address:       string
   tokenAddress:  string
-  tokenDecimals: number
-  vaultDecimals: number
+  tokenDecimals: string
+  vaultDecimals: string
   apy:           number
-  tvl:           number
+  tvl:           string
   balances:      Array<Balance>
   deposits:      Array<Deposit>
 }
@@ -39,7 +39,7 @@ export class Vault {
   readonly tokenDecimals: number
   readonly vaultDecimals: number
   readonly apy:           number
-  readonly tvl:           number
+  readonly tvl:           string
   readonly balances:      Array<Balance>
   readonly deposits:      Array<Deposit>
 
@@ -61,8 +61,8 @@ export class Vault {
     this.token         = token
     this.address       = address
     this.tokenAddress  = tokenAddress
-    this.tokenDecimals = tokenDecimals
-    this.vaultDecimals = vaultDecimals
+    this.tokenDecimals = +tokenDecimals
+    this.vaultDecimals = +vaultDecimals
     this.apy           = apy
     this.tvl           = tvl
     this.balances      = balances
@@ -72,14 +72,14 @@ export class Vault {
 
 type VaultData = {
   apy:              number
-  tvl:              number
+  tvl:              string
   contract_address: string
   identifier:       string
   pid:              number
   token:            string
   token_address:    string
-  token_decimals:   number
-  vault_decimals:   number
+  token_decimals:   string
+  vault_decimals:   string
   balances:         Array<Balance>
   deposits:         Array<Deposit>
 }
