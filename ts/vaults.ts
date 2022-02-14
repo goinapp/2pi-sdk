@@ -27,6 +27,7 @@ type Constructor = {
 }
 
 export type Filter = {
+  partner:  string | undefined
   networks: Array<string> | undefined
 } | undefined
 
@@ -84,9 +85,22 @@ type VaultData = {
   deposits:         Array<Deposit>
 }
 
+const params = (filter: Filter): Record<string, string | Array<string>> => {
+  const params: Record<string, string | Array<string>> = {}
+
+  if (filter?.networks) {
+    params.only = filter.networks
+  }
+
+  if (filter?.partner) {
+    params.partner = filter?.partner
+  }
+
+  return params
+}
+
 export const getVaults = async (twoPi: TwoPi, filter: Filter): Promise<Array<Vault>> => {
-  const params   = filter?.networks ? { only: filter.networks } : undefined
-  const response = await get(twoPi, routes.vaultsPath, params)
+  const response = await get(twoPi, routes.vaultsPath, params(filter))
 
   return response.data.data.map((vault: VaultData): Vault => {
     const {
