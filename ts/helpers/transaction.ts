@@ -69,6 +69,21 @@ const processTransaction = async (
   }
 }
 
+const registerTransactionProposals = async (
+  twoPi: TwoPi,
+  { provider, transactions }: {
+    provider:     Record<string, any>,
+    transactions: Array<Record<string, any>>
+  }
+) => {
+  for (const transactionData of transactions) {
+    const { description, transaction: data, transaction_details: details } = transactionData
+    const proposal = { provider, transaction: { description, data, details } }
+
+    await post(twoPi, routes.proposalsPath, { proposal })
+  }
+}
+
 export const processTransactionResponse = async (
   twoPi:           TwoPi,
   vaultIdentifier: string,
@@ -78,6 +93,8 @@ export const processTransactionResponse = async (
 
   if (response.status === 200) {
     for (const data of response.data.data) {
+      await registerTransactionProposals(twoPi, data)
+
       const signer = getSigner(twoPi, {
         chainId: data.provider.chain_id,
         rpcUrl:  data.provider.rpc_url
