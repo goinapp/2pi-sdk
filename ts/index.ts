@@ -1,1 +1,3 @@
-export const TwoPi = require('./twoPi').default
+import TwoPi from './twoPi'
+
+export { TwoPi }
