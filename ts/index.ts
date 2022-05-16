@@ -1,3 +1,3 @@
-import TwoPi from "./twoPi";
+import TwoPi from './twoPi'
 
-export { TwoPi };
+export { TwoPi }
