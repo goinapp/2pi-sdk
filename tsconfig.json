@@ -10,6 +10,6 @@
     "rootDir": "ts",
     "outDir": "dist",
     "declaration": true,
-    "declarationMap": true,
+    "declarationMap": true
   }
 }
